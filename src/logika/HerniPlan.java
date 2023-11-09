@@ -1,7 +1,10 @@
 package logika;
 
+import util.Observer;
+import util.SubjectOfChange;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
@@ -13,11 +16,12 @@ import java.util.HashSet;
  *
 
  */
-public class HerniPlan {
+public class HerniPlan implements SubjectOfChange{
 
     private Prostor aktualniProstor;
 
     private HashSet<Prostor> seznamProstoru = new HashSet<>();
+    private final Set<Observer> observers = new HashSet<>();
 
     private Batoh batoh;
     private static final int OMEZENI_BATOHU = 4;
@@ -37,14 +41,14 @@ public class HerniPlan {
      */
     private void zalozProstoryHry() {
         // vytvářejí se jednotlivé prostory
-        Prostor loznice = new Prostor("ložnice", "místnost, ve které se proubíš");
-        Prostor koupelna = new Prostor("koupelna", "koupelna v děděčkovo domě");
-        Prostor jidelna = new Prostor("jídelna", "jídelna v dědečkovo domě");
-        Prostor dedeckovoGaraz = new Prostor("dedeckovoGaraz", "Garáž, ve které se nachází dědečkovo auto");
-        Prostor dedeckovoAuto = new Prostor("dedeckovoAuto", "Dědečkovo auto, se kterým musíš vyhrát závod");
-        Prostor simulator = new Prostor("simulátor", "Místo, kde můžeš trénovat na závod");
-        Prostor autodilna = new Prostor("autodílna", "studna a zde se můžeš napít");
-        Prostor zavod = new Prostor("závod", "Místo, kde se uskuteční závod a je možné zde vyhrát hru");
+        Prostor loznice = new Prostor("ložnice", "místnost, ve které se proubíš",60.0, 120.0);
+        Prostor koupelna = new Prostor("koupelna", "koupelna v děděčkovo domě", 320.0, 80.0);
+        Prostor jidelna = new Prostor("jídelna", "jídelna v dědečkovo domě", 230.0, 190.0);
+        Prostor dedeckovoGaraz = new Prostor("dedeckovoGaraz", "Garáž, ve které se nachází dědečkovo auto", 145.0, 80.0);
+        Prostor dedeckovoAuto = new Prostor("dedeckovoAuto", "Dědečkovo auto, se kterým musíš vyhrát závod",230.0, 120.0);
+        Prostor simulator = new Prostor("simulátor", "Místo, kde můžeš trénovat na závod",230.0, 120.0);
+        Prostor autodilna = new Prostor("autodílna", "studna a zde se můžeš napít",230.0, 120.0);
+        Prostor zavod = new Prostor("závod", "Místo, kde se uskuteční závod a je možné zde vyhrát hru",230.0, 120.0);
 
         seznamProstoru.add(loznice);
         seznamProstoru.add(koupelna);
@@ -172,7 +176,7 @@ public class HerniPlan {
                 return vec;
             }
         }
-        for (Vec vec : aktualniProstor.getSeznamVeci())
+        for (Vec vec : aktualniProstor.getSeznamVeciVProstoru())
             if (vec.getNazev().equals(nazevVeci)) {
                 return vec;
             }
@@ -180,10 +184,27 @@ public class HerniPlan {
     }
 
     public void namontuj(String nazevVeci) {
-        for (Vec vec : aktualniProstor.getSeznamVeci()) {
+        for (Vec vec : aktualniProstor.getSeznamVeciVProstoru()) {
             if (vec.getNazev().equals(nazevVeci)) {
                 vec.setNamontovano(true);
             }
+        }
+
+    }
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void unregisterObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
         }
 
     }

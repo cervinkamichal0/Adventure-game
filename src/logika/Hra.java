@@ -16,12 +16,14 @@ public class Hra implements IHra {
     private HerniPlan herniPlan;
     private String epilog = "Dík, že jste si zahráli. Ahoj.";
     private boolean konecHry = false;
+    public Batoh batoh;
 
     /**
      *  Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
      */
     public Hra() {
         herniPlan = new HerniPlan();
+        batoh = new Batoh();
         platnePrikazy = new SeznamPrikazu();
         platnePrikazy.vlozPrikaz(new PrikazNapoveda(platnePrikazy,herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazJdi(this)); //vyhra
@@ -110,5 +112,9 @@ public class Hra implements IHra {
      public void setEpilog(String epilog){
          this.epilog = epilog;
      }
+    @Override
+    public Batoh getBatoh() {
+        return this.batoh;
+    }
 }
 

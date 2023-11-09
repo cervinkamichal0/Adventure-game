@@ -28,7 +28,7 @@ public class PrikazMluv implements IPrikaz {
             List<Vec> seznamPotrebnychVeci = aktualniPostava.getPotrebneVeci();
 
             List<Vec> seznamNamontovanychVeci = new ArrayList<>();
-            for (Vec vec : plan.getAktualniProstor().getSeznamVeci())
+            for (Vec vec : plan.getAktualniProstor().getSeznamVeciVProstoru())
             {
                 if(vec.jeNamontovano()){
                     seznamNamontovanychVeci.add(vec);

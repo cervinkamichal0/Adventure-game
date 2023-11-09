@@ -3,6 +3,12 @@ package logika;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Map;
+
 /**
  * Trida Prostor - popisuje jednotlivé prostory (místnosti) hry
  *
@@ -19,11 +25,16 @@ public class Prostor {
     private String nazev;
     private String popis;
     private Set<Prostor> vychody;   // obsahuje sousední místnosti
-    private List<Vec> seznamVeci;
+    private List<Vec> seznamVeciVProstoru;
     private List<Postava> seznamPostav = new ArrayList<>();
 
     private Boolean zamceno = false;
     private Boolean funkcni = true;
+
+    private Map<String, Vec> seznamVeci ;   // seznam věcí v prostoru
+    private final Double posTop;
+    private final Double posLeft;
+
 
     /**
      * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník
@@ -33,11 +44,13 @@ public class Prostor {
      * víceslovný název bez mezer.
      * @param popis Popis prostoru.
      */
-    public Prostor(String nazev, String popis) {
+    public Prostor(String nazev, String popis, double posLeft,double posTop) {
         this.nazev = nazev;
         this.popis = popis;
         vychody = new HashSet<>();
-        seznamVeci = new ArrayList<Vec>();
+        seznamVeciVProstoru = new ArrayList<Vec>();
+        this.posLeft = posLeft;
+        this.posTop = posTop;
     }
 
     /**
@@ -160,13 +173,13 @@ public class Prostor {
     }
 
     public void vlozVec(Vec vec){
-        seznamVeci.add(vec);
+        seznamVeciVProstoru.add(vec);
     }
     public void vlozPostavu (Postava postava){seznamPostav.add(postava);}
 
 
     public boolean obsahujeVec(String nazevVeci){
-        for(Vec neco: seznamVeci){
+        for(Vec neco: seznamVeciVProstoru){
             if (neco.getNazev().equals(nazevVeci)){
                 return true;
             }
@@ -175,7 +188,7 @@ public class Prostor {
     }
     public Vec najdiVec(String nazevVeci){
         Vec vybraVec = null;
-        for(Vec neco: seznamVeci){
+        for(Vec neco: seznamVeciVProstoru){
             if (neco.getNazev().equals(nazevVeci)){
                 vybraVec = neco;
             }
@@ -184,7 +197,7 @@ public class Prostor {
     }
     public Vec vyberVec(String nazevVeci){
         Vec vybraVec = null;
-        for(Vec neco: seznamVeci){
+        for(Vec neco: seznamVeciVProstoru){
             if (neco.getNazev().equals(nazevVeci)){
                 vybraVec = neco;
             }
@@ -192,7 +205,7 @@ public class Prostor {
 
         if (vybraVec != null){
             if(vybraVec.jePrenositelna()){
-                seznamVeci.remove(vybraVec);
+                seznamVeciVProstoru.remove(vybraVec);
             }
             else {
                 vybraVec=null;
@@ -205,7 +218,7 @@ public class Prostor {
 
     private String seznamVeci(){
         String seznam = "";
-        for( Vec vec : seznamVeci){
+        for( Vec vec : seznamVeciVProstoru){
             seznam = seznam + vec.getNazev() + " ";
         }
         return  seznam;
@@ -238,8 +251,8 @@ public class Prostor {
         return seznamPostav;
     }
 
-    public List<Vec> getSeznamVeci() {
-        return seznamVeci;
+    public List<Vec> getSeznamVeciVProstoru() {
+        return seznamVeciVProstoru;
     }
     public Boolean containsPostava(String jmeno){
         for (Postava postava: seznamPostav){
@@ -257,5 +270,16 @@ public class Prostor {
             }
         }
         return null;
+    }
+    public String toString() {
+        return getNazev();
+    }
+
+    public Double getPosTop() {
+        return posTop;
+    }
+
+    public Double getPosLeft() {
+        return posLeft;
     }
 }
