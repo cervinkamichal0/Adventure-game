@@ -26,6 +26,7 @@ public class Batoh implements SubjectOfChange{
     public boolean vlozDoBatohu(Vec neco){
         if(this.obsahBatohu.size()< omezeniBatohu && neco.jePrenositelna()) {
             obsahBatohu.add(neco);
+            notifyObservers();
             return true;
         }
         return false;

@@ -21,7 +21,7 @@ public class HerniPlocha implements Observer {
     public HerniPlocha(HerniPlan plan) {
         this.herniPlan = plan;
 
-        Image image = new Image(HerniPlocha.class.getClassLoader().getResourceAsStream("herniPlan.png"), 400, 250,
+        Image image = new Image(HerniPlocha.class.getClassLoader().getResourceAsStream("herniPlan.png"), 476, 458,
                 false, false);
         imageView = new ImageView(image);
 

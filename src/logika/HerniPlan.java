@@ -136,6 +136,7 @@ public class HerniPlan implements SubjectOfChange{
      */
     public void setAktualniProstor(Prostor prostor) {
         aktualniProstor = prostor;
+        notifyObservers();
     }
 
 

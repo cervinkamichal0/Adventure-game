@@ -2,6 +2,8 @@ package gui;
 
 import logika.HerniPlan;
 import logika.Prostor;
+import logika.IHra;
+import org.w3c.dom.Text;
 import util.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +21,7 @@ public class PanelVychodu implements Observer {
         nactiVychodyAktualnihoProstoru();
 
         listView.setItems(vychody);
-        listView.setPrefWidth(100);
+        listView.setPrefWidth(120);
 
         herniPlan.registerObserver(this);
     }
