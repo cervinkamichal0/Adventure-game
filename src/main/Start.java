@@ -2,6 +2,7 @@
  * Kontrola kódování: Příliš žluťoučký kůň úpěl ďábelské ódy. */
 package main;
 
+import javafx.scene.control.*;
 import logika.*;
 import uiText.TextoveRozhrani;
 import gui.*;
@@ -10,12 +11,8 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
 
 /*******************************************************************************
  * Třída  Start je hlavní třídou projektu,
@@ -44,16 +41,27 @@ public class Start extends Application
     @Override
     public void start(Stage primaryStage) throws Exception {
         BorderPane borderPane = new BorderPane();
+        MenuBar menuBar = new MenuBar();
+
+        Menu menu = new Menu("Soubor");
+
+        MenuItem novaHraMenuItem = new MenuItem("Nová hra");
+        MenuItem napovedaMenuItem = new MenuItem("Nápověda");
+        menu.getItems().addAll(novaHraMenuItem, napovedaMenuItem);
+        menuBar.getMenus().add(menu);
+        VBox herniPlochaAndMenuBar = new VBox();
 
         HerniPlocha herniPlocha = new HerniPlocha(hra.getHerniPlan());
+        herniPlochaAndMenuBar.getChildren().addAll(menuBar,herniPlocha.getAnchorPane());
 
-        borderPane.setTop(herniPlocha.getAnchorPane());
-
-        PanelVychodu panelVychodu = new PanelVychodu(hra.getHerniPlan());
+        borderPane.setTop(herniPlochaAndMenuBar);
+        TextArea konzole = new TextArea();
+        PanelVychodu panelVychodu = new PanelVychodu(hra,konzole);
         ListView<String> listView = panelVychodu.getListView();
         borderPane.setRight(listView);
 
-        TextArea konzole = new TextArea();
+
+
         borderPane.setCenter(konzole);
         konzole.setText(hra.vratUvitani());
         konzole.setEditable(false);

@@ -1,10 +1,10 @@
 package gui;
 
+import javafx.scene.control.TextArea;
 import logika.HerniPlan;
 import logika.Prostor;
-import logika.IHra;
-import org.w3c.dom.Text;
 import util.Observer;
+import logika.IHra;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -12,18 +12,30 @@ import javafx.scene.control.ListView;
 public class PanelVychodu implements Observer {
 
     final HerniPlan herniPlan;
+    private IHra hra;
     ListView<String> listView = new ListView<>();
     ObservableList<String> vychody = FXCollections.observableArrayList();
 
-    public PanelVychodu(HerniPlan herniPlan) {
-        this.herniPlan = herniPlan;
+    public PanelVychodu(IHra hra, TextArea konzole) {
 
+        this.herniPlan = hra.getHerniPlan();
+        this.hra = hra;
+
+        herniPlan.registerObserver(this);
         nactiVychodyAktualnihoProstoru();
 
         listView.setItems(vychody);
         listView.setPrefWidth(120);
+        listView.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getClickCount() == 2) {
+                String vychod = listView.getSelectionModel().getSelectedItem();
+                String prikaz = hra.zpracujPrikaz("jdi " + vychod);
+                konzole.appendText("\n" + prikaz + "\n");
+            }
+        });
 
-        herniPlan.registerObserver(this);
+
+        konzole.setEditable(false);
     }
 
     public ListView<String> getListView() {
