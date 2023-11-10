@@ -114,7 +114,6 @@ public class HerniPlan implements SubjectOfChange{
 
         batoh = new Batoh(OMEZENI_BATOHU);
 
-
         aktualniProstor = loznice;  // hra začíná v domečku
 
     }

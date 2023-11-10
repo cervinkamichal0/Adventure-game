@@ -5,6 +5,8 @@ package main;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import logika.*;
 import uiText.TextoveRozhrani;
 import gui.*;
@@ -24,7 +26,7 @@ import javafx.stage.Stage;
  */
 public class Start extends Application
 {
-    private final IHra hra = new Hra();
+    private  final IHra hra = new Hra();
     /***************************************************************************
      * Metoda, prostřednictvím níž se spouští celá aplikace.
      *
@@ -49,17 +51,66 @@ public class Start extends Application
 
 
         novaHra.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
+        novaHra.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Stage newStage = new Stage();
+                try {
+                    Start start = new Start();
+                    start.start(newStage);
+                    primaryStage.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+            }
+
+        }});
+
         soubor.getItems().add(novaHra);
         SeparatorMenuItem separator = new SeparatorMenuItem();
         soubor.getItems().add(separator);
         MenuItem konecHry = new MenuItem("Konec hry");
+        konecHry.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.exit(0);
+            }
+        });
 
         soubor.getItems().add(konecHry);
-        Menu napoveda = new Menu("Nápověda");
-        napoveda.getItems().add(new MenuItem("Nápověda"));
-        napoveda.getItems().add(new MenuItem("O hře"));
+        Menu mNapoveda = new Menu("Nápověda");
+        MenuItem mINapoveda = new MenuItem("Nápověda");
+        MenuItem mIOHre = new MenuItem("O hře");
+        Alert aNapoveda = new Alert(Alert.AlertType.INFORMATION);
+        aNapoveda.setContentText("Můžeš zadat tyto příkazy:\n"
+                + "konec; jdi; pouzij; seber; namontuj; mluv; jetZavod; poloz; pomoc"
+                +"\n"
+                +"Nacháziš se v: " + hra.getHerniPlan().getAktualniProstor().dlouhyPopis());
 
-        MenuBar menuBar = new MenuBar(soubor, napoveda);
+        mINapoveda.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                aNapoveda.show();
+            }
+        });
+        WebView webView = new WebView();
+        WebEngine webEngine = webView.getEngine();
+
+        mIOHre.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                webEngine.load( getClass().getResource("/OHre.html").toString());
+                Scene webviewScene = new Scene(webView,600,600);
+                Stage webStage = new Stage();
+                webStage.setScene(webviewScene);
+                webStage.setTitle("O hře");
+                webStage.show();
+            }
+        });
+        mNapoveda.getItems().add(mINapoveda);
+        mNapoveda.getItems().add(mIOHre);
+
+
+        MenuBar menuBar = new MenuBar(soubor, mNapoveda);
 
 
         HerniPlocha herniPlocha = new HerniPlocha(hra.getHerniPlan());

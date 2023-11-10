@@ -116,5 +116,7 @@ public class Hra implements IHra {
     public Batoh getBatoh() {
         return this.batoh;
     }
+
+
 }
 
