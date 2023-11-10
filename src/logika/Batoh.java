@@ -36,6 +36,7 @@ public class Batoh implements SubjectOfChange{
         for (Vec neco: obsahBatohu){
             if (neco.getNazev().equals(nazevVeci)){
                 this.obsahBatohu.remove(neco);
+                notifyObservers();
                 return neco;
             }
         }

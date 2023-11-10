@@ -2,7 +2,9 @@
  * Kontrola kódování: Příliš žluťoučký kůň úpěl ďábelské ódy. */
 package main;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCombination;
 import logika.*;
 import uiText.TextoveRozhrani;
 import gui.*;
@@ -41,20 +43,35 @@ public class Start extends Application
     @Override
     public void start(Stage primaryStage) throws Exception {
         BorderPane borderPane = new BorderPane();
-        MenuBar menuBar = new MenuBar();
 
-        Menu menu = new Menu("Soubor");
+        Menu soubor = new Menu("Soubor");
+        MenuItem novaHra = new MenuItem("Nová hra");
 
-        MenuItem novaHraMenuItem = new MenuItem("Nová hra");
-        MenuItem napovedaMenuItem = new MenuItem("Nápověda");
-        menu.getItems().addAll(novaHraMenuItem, napovedaMenuItem);
-        menuBar.getMenus().add(menu);
-        VBox herniPlochaAndMenuBar = new VBox();
+
+        novaHra.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
+        soubor.getItems().add(novaHra);
+        SeparatorMenuItem separator = new SeparatorMenuItem();
+        soubor.getItems().add(separator);
+        MenuItem konecHry = new MenuItem("Konec hry");
+
+        soubor.getItems().add(konecHry);
+        Menu napoveda = new Menu("Nápověda");
+        napoveda.getItems().add(new MenuItem("Nápověda"));
+        napoveda.getItems().add(new MenuItem("O hře"));
+
+        MenuBar menuBar = new MenuBar(soubor, napoveda);
+
 
         HerniPlocha herniPlocha = new HerniPlocha(hra.getHerniPlan());
-        herniPlochaAndMenuBar.getChildren().addAll(menuBar,herniPlocha.getAnchorPane());
+        VBox herniPlochaAndMenuBar = new VBox(menuBar,herniPlocha.getAnchorPane());
+        herniPlochaAndMenuBar.setAlignment(Pos.CENTER);
+
+
 
         borderPane.setTop(herniPlochaAndMenuBar);
+
+
+
         TextArea konzole = new TextArea();
         PanelVychodu panelVychodu = new PanelVychodu(hra,konzole);
         ListView<String> listView = panelVychodu.getListView();
@@ -79,7 +96,7 @@ public class Start extends Application
         HBox.setHgrow(uzivatelskyVstup, javafx.scene.layout.Priority.ALWAYS);
 
         spodniBox.setPadding(new javafx.geometry.Insets(5));
-        spodniBox.setStyle("-fx-background-color: lightgray;");
+        spodniBox.setStyle("-fx-back ground-color: lightgray;");
 
         borderPane.setBottom(spodniBox);
 
@@ -101,7 +118,7 @@ public class Start extends Application
             }
         });
 
-        Scene scene = new Scene(borderPane, 600, 450);
+        Scene scene = new Scene(borderPane, 600, 800);
         uzivatelskyVstup.requestFocus();
 
         primaryStage.setScene(scene);

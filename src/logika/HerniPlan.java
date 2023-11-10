@@ -41,14 +41,14 @@ public class HerniPlan implements SubjectOfChange{
      */
     private void zalozProstoryHry() {
         // vytvářejí se jednotlivé prostory
-        Prostor loznice = new Prostor("ložnice", "místnost, ve které se proubíš",60.0, 120.0);
-        Prostor koupelna = new Prostor("koupelna", "koupelna v děděčkovo domě", 320.0, 80.0);
-        Prostor jidelna = new Prostor("jídelna", "jídelna v dědečkovo domě", 230.0, 190.0);
-        Prostor dedeckovoGaraz = new Prostor("dedeckovoGaraz", "Garáž, ve které se nachází dědečkovo auto", 145.0, 80.0);
-        Prostor dedeckovoAuto = new Prostor("dedeckovoAuto", "Dědečkovo auto, se kterým musíš vyhrát závod",230.0, 120.0);
-        Prostor simulator = new Prostor("simulátor", "Místo, kde můžeš trénovat na závod",230.0, 120.0);
-        Prostor autodilna = new Prostor("autodílna", "studna a zde se můžeš napít",230.0, 120.0);
-        Prostor zavod = new Prostor("závod", "Místo, kde se uskuteční závod a je možné zde vyhrát hru",230.0, 120.0);
+        Prostor loznice = new Prostor("ložnice", "místnost, ve které se proubíš",225, 370);
+        Prostor koupelna = new Prostor("koupelna", "koupelna v děděčkovo domě", 105, 320);
+        Prostor jidelna = new Prostor("jídelna", "jídelna v dědečkovo domě", 350, 320);
+        Prostor dedeckovoGaraz = new Prostor("dedeckovoGaraz", "Garáž, ve které se nachází dědečkovo auto", 225, 270);
+        Prostor dedeckovoAuto = new Prostor("dedeckovoAuto", "Dědečkovo auto, se kterým musíš vyhrát závod",225, 170);
+        Prostor simulator = new Prostor("simulátor", "Místo, kde můžeš trénovat na závod",105, 110);
+        Prostor autodilna = new Prostor("autodílna", "studna a zde se můžeš napít",225, 65);
+        Prostor zavod = new Prostor("závod", "Místo, kde se uskuteční závod a je možné zde vyhrát hru",350, 110);
 
         seznamProstoru.add(loznice);
         seznamProstoru.add(koupelna);
