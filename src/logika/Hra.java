@@ -23,7 +23,7 @@ public class Hra implements IHra {
      */
     public Hra() {
         herniPlan = new HerniPlan();
-        batoh = new Batoh();
+        batoh = new Batoh(5);
         platnePrikazy = new SeznamPrikazu();
         platnePrikazy.vlozPrikaz(new PrikazNapoveda(platnePrikazy,herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazJdi(this)); //vyhra
@@ -114,7 +114,7 @@ public class Hra implements IHra {
      }
     @Override
     public Batoh getBatoh() {
-        return this.batoh;
+        return this.herniPlan.getBatoh();
     }
 
 

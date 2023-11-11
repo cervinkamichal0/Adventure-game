@@ -169,7 +169,7 @@ public class Start extends Application
             }
         });
 
-        Scene scene = new Scene(borderPane, 600, 800);
+        Scene scene = new Scene(borderPane, 600, 900);
         uzivatelskyVstup.requestFocus();
 
         primaryStage.setScene(scene);

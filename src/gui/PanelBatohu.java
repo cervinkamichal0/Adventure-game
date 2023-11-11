@@ -30,7 +30,7 @@ public class PanelBatohu implements Observer {
     private void init() {
 
         vbox.setPrefWidth(100);
-        Label label = new Label("Seznam věcí:");
+        Label label = new Label("Obsah batohu:");
         vbox.getChildren().addAll(label, panelVeci);
 
         nactiObrazkyVeci();

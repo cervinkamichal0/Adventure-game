@@ -19,10 +19,7 @@ public class Batoh implements SubjectOfChange{
         obsahBatohu = new HashSet<>();
         seznamVeci = new HashMap<String,Vec>();
     }
-    public Batoh () {
-        seznamVeci = new HashMap<String, Vec>();
-        omezeniBatohu = 5;
-    }
+
 
     public boolean vlozDoBatohu(Vec neco){
         if(this.obsahBatohu.size()< omezeniBatohu && neco.jePrenositelna()) {

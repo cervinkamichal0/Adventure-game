@@ -27,7 +27,7 @@ public class PrikazPoloz implements IPrikaz{
         if (pozadovanaVec != null){
 
             plan.getAktualniProstor().vlozVec(pozadovanaVec);
-            return nazevVeci + " jsi položil v prostoru";
+            return nazevVeci + " jsi položil v prostoru: " + plan.getAktualniProstor().getNazev();
         }
 
         return  nazevVeci + " v košíku nemáš";
