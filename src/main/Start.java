@@ -94,18 +94,19 @@ public class Start extends Application
         });
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
-
+        Stage webStage = new Stage();
+        Scene webviewScene = new Scene(webView,600,600);
         mIOHre.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                webEngine.load( getClass().getResource("/OHre.html").toString());
-                Scene webviewScene = new Scene(webView,600,600);
-                Stage webStage = new Stage();
+                webEngine.load(getClass().getResource("/OHre.html").toString());
                 webStage.setScene(webviewScene);
                 webStage.setTitle("O hře");
                 webStage.show();
+
             }
         });
+
         mNapoveda.getItems().add(mINapoveda);
         mNapoveda.getItems().add(mIOHre);
 
