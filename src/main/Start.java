@@ -135,20 +135,20 @@ public class Start extends Application
         konzole.setText(hra.vratUvitani());
         konzole.setEditable(false);
 
-        Label popisek = new Label("Zadej příkaz: ");
+        Label popisekKonzole = new Label("ZADEJTE PŘÍKAZ:");
 
-        popisek.setStyle("-fx-font-weight: bold; -fx-font-size: 16;");
 
         TextField uzivatelskyVstup = new TextField();
-        HBox spodniBox = new HBox(popisek, uzivatelskyVstup);
+        HBox spodniBox = new HBox(popisekKonzole, uzivatelskyVstup);
+        spodniBox.setSpacing(5);
 
         spodniBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
-        HBox.setHgrow(popisek, javafx.scene.layout.Priority.ALWAYS);
+        HBox.setHgrow(popisekKonzole, javafx.scene.layout.Priority.ALWAYS);
         HBox.setHgrow(uzivatelskyVstup, javafx.scene.layout.Priority.ALWAYS);
 
         spodniBox.setPadding(new javafx.geometry.Insets(5));
-        spodniBox.setStyle("-fx-back ground-color: lightgray;");
+
 
         borderPane.setBottom(spodniBox);
 
