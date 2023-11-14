@@ -18,6 +18,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.util.HashSet;
+import java.util.Random;
+
 /*******************************************************************************
  * Třída  Start je hlavní třídou projektu,
  * který představuje jednoduchou textovou adventuru určenou k dalším úpravám a rozšiřování
@@ -48,6 +51,9 @@ public class Start extends Application
 
         Menu soubor = new Menu("Soubor");
         MenuItem novaHra = new MenuItem("Nová hra");
+        Menu tajne = new Menu("Tajné");
+        MenuItem teleport = new MenuItem("Teleport");
+
 
 
         novaHra.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
@@ -109,6 +115,7 @@ public class Start extends Application
 
         mNapoveda.getItems().add(mINapoveda);
         mNapoveda.getItems().add(mIOHre);
+        tajne.getItems().add(teleport);
 
 
         MenuBar menuBar = new MenuBar(soubor, mNapoveda);
@@ -117,7 +124,16 @@ public class Start extends Application
         HerniPlocha herniPlocha = new HerniPlocha(hra.getHerniPlan());
         VBox herniPlochaAndMenuBar = new VBox(menuBar,herniPlocha.getAnchorPane());
         herniPlochaAndMenuBar.setAlignment(Pos.CENTER);
+        menuBar.getMenus().add(tajne);
+        HashSet<Prostor> seznamProstoru = hra.getHerniPlan().getSeznamProstoru();
 
+        teleport.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                int random = new Random().nextInt(seznamProstoru.size()); // Random
+                hra.getHerniPlan().setAktualniProstor(seznamProstoru.toArray(new Prostor[0])[random]);
+            }
+        });
 
 
         borderPane.setTop(herniPlochaAndMenuBar);

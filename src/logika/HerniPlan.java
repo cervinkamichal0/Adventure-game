@@ -3,7 +3,9 @@ package logika;
 import util.Observer;
 import util.SubjectOfChange;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,6 +24,8 @@ public class HerniPlan implements SubjectOfChange{
 
     private HashSet<Prostor> seznamProstoru = new HashSet<>();
     private final Set<Observer> observers = new HashSet<>();
+    private List<Vec> seznamVeci = new ArrayList<>();
+
 
     private Batoh batoh;
     private static final int OMEZENI_BATOHU = 4;
@@ -86,27 +90,36 @@ public class HerniPlan implements SubjectOfChange{
         dedeckovoAuto.setFunkcni(false);
 
         jidelna.vlozVec(new Vec("snidane", false, true, false));
+        seznamVeci.add(new Vec("snidane", false, true, false));
 
         koupelna.vlozVec(new Vec("kartacek", false, true, false));
+        seznamVeci.add(new Vec("kartacek", false, true, false));
 
         dedeckovoGaraz.vlozVec(new Vec("kliceOdAuta", true, true, false));
+        seznamVeci.add(new Vec("kliceOdAuta", true, true, false));
         dedeckovoGaraz.vlozVec(new Vec("autobaterie", false, false, true));
+        seznamVeci.add(new Vec("autobaterie", false, false, true));
 
         Vec spoiler = new Vec("spoiler", false, false, true);
+        seznamVeci.add(spoiler);
         Vec sportovniPodvozek = new Vec("sportovniPodvozek", false, false, true);
+        seznamVeci.add(sportovniPodvozek);
         Vec zavodniPneumatiky = new Vec("zavodniPneumatiky", false, false, true);
+        seznamVeci.add(zavodniPneumatiky);
         autodilna.vlozVec(spoiler);
         autodilna.vlozVec(sportovniPodvozek);
         autodilna.vlozVec(zavodniPneumatiky);
 
         simulator.vlozVec(new Vec("zavodniSimulator", false, true, false));
-
+        seznamVeci.add(new Vec("zavodniSimulator", false, true, false));
         Postava pablo = new Postava("Pablo", "Vítej v autodílně! Mám tu pro tebe připravené všechny díly, které na závod budeš potřebovat. Stači je namontovat. Až to budeš mít, ozvi se mi.", "To vypadá dobře. Do batohu jsem ti dal věci, které budeš potřebovat na závodění. Můžeš vyrazit trénovat na simulátor!");
         pablo.vlozPotrebnouVec(spoiler);
         pablo.vlozPotrebnouVec(sportovniPodvozek);
         pablo.vlozPotrebnouVec(zavodniPneumatiky);
         pablo.vlozVecProHrace(new Vec("helma", true, true, false));
+        seznamVeci.add(new Vec("helma", true, true, false));
         pablo.vlozVecProHrace(new Vec("zavodniKombineza",true,true,false));
+        seznamVeci.add(new Vec("zavodniKombineza",true,true,false));
         pablo.setProstorKOdemknuti(simulator);
         autodilna.vlozPostavu(pablo);
 
@@ -191,6 +204,15 @@ public class HerniPlan implements SubjectOfChange{
         }
 
     }
+
+    public HashSet<Prostor> getSeznamProstoru() {
+        return seznamProstoru;
+    }
+
+    public List<Vec> getSeznamVeci() {
+        return seznamVeci;
+    }
+
     @Override
     public void registerObserver(Observer observer) {
         observers.add(observer);
