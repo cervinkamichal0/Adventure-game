@@ -25,6 +25,7 @@ public class HerniPlan implements SubjectOfChange{
     private HashSet<Prostor> seznamProstoru = new HashSet<>();
     private final Set<Observer> observers = new HashSet<>();
     private List<Vec> seznamVeci = new ArrayList<>();
+    private boolean ukazMenu = false;
 
 
     private Batoh batoh;
@@ -211,6 +212,14 @@ public class HerniPlan implements SubjectOfChange{
 
     public List<Vec> getSeznamVeci() {
         return seznamVeci;
+    }
+
+    public boolean isUkazMenu() {
+        return ukazMenu;
+    }
+
+    public void setUkazMenu(boolean ukazMenu) {
+        this.ukazMenu = ukazMenu;
     }
 
     @Override

@@ -18,6 +18,7 @@ public class Hra implements IHra {
     private boolean konecHry = false;
     public Batoh batoh;
 
+
     /**
      *  Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
      */
@@ -109,6 +110,7 @@ public class Hra implements IHra {
      public HerniPlan getHerniPlan(){
         return herniPlan;
      }
+
 
      public void setEpilog(String epilog){
          this.epilog = epilog;

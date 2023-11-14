@@ -1,5 +1,7 @@
 package logika;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,7 +15,8 @@ public class PrikazJdi implements IPrikaz {
     private HerniPlan plan;
     private Hra hra;
     private Boolean jeZamceno;
-    
+    private List<String> logParametru = new ArrayList<>();
+    private boolean ukazTajneMenu = false;
     /**
     *  Konstruktor třídy
     *  
@@ -50,15 +53,31 @@ public class PrikazJdi implements IPrikaz {
         }
         else {
             if (sousedniProstor.jeZamceno()) {
-                return "dveře do místnosti "+sousedniProstor.getNazev()
-                        +" jsou zamčené";
+                return "dveře do místnosti " + sousedniProstor.getNazev()
+                        + " jsou zamčené";
             }
 
             String obsahBatohu = plan.getBatoh().dlouhyPopis();
             boolean maKlice = obsahBatohu.contains("kliceOdAuta");
-            if(smer.equals("dedeckovoAuto") && maKlice == false){
+            if (smer.equals("dedeckovoAuto") && maKlice == false) {
                 return "Měl by sis s sebou nejdřív vzít klíče od auta";
             }
+            logParametru.add(smer);
+            try {
+
+            String parametr4 = logParametru.get(logParametru.size()-1);
+            String parametr3 = logParametru.get(logParametru.size() - 2);
+            String parametr2 = logParametru.get(logParametru.size() - 3);
+            String parametr1 = logParametru.get(logParametru.size() - 4);
+
+            if (parametr1.equals(parametr3) && parametr2.equals(parametr4))
+            {
+                plan.setUkazMenu(true);
+            }
+            }
+            catch (IndexOutOfBoundsException e){
+
+            };
             plan.setAktualniProstor(sousedniProstor);
             if (sousedniProstor.getSeznamPostav().isEmpty() == false){
                 String uvitaniPostav = "";
@@ -89,5 +108,9 @@ public class PrikazJdi implements IPrikaz {
 
     public void setJeZamceno(Boolean jeZamceno) {
         this.jeZamceno = jeZamceno;
+    }
+
+    public boolean isUkazTajneMenu() {
+        return ukazTajneMenu;
     }
 }

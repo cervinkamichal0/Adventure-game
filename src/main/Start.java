@@ -52,6 +52,7 @@ public class Start extends Application
         Menu soubor = new Menu("Soubor");
         MenuItem novaHra = new MenuItem("Nová hra");
         Menu tajne = new Menu("Tajné");
+        tajne.setVisible(false);
         MenuItem teleport = new MenuItem("Teleport");
 
 
@@ -121,7 +122,7 @@ public class Start extends Application
         MenuBar menuBar = new MenuBar(soubor, mNapoveda);
 
 
-        HerniPlocha herniPlocha = new HerniPlocha(hra.getHerniPlan());
+        HerniPlocha herniPlocha = new HerniPlocha(hra.getHerniPlan(),tajne);
         VBox herniPlochaAndMenuBar = new VBox(menuBar,herniPlocha.getAnchorPane());
         herniPlochaAndMenuBar.setAlignment(Pos.CENTER);
         menuBar.getMenus().add(tajne);
