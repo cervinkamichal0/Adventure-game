@@ -1,1 +1,1 @@
-Jednoduchá adventura z GUI vytvořeným pomocí JavaFX.
+Simple adventure game with GUI made with JavaFX.
